@@ -19,10 +19,10 @@ post "/" do
 		explode = false
 	end
 	dice.times do |i|
-		roll = Random.rand(dicerange)
+		roll = Random.rand(1..dicerange)
 		@rolls.push(roll)
 		if explode and roll == dicerange
-			@rolls.push(Random.rand(dicerange))
+			@rolls.push(Random.rand(1..dicerange))
 		end
 	end
 	<<-TEXT
