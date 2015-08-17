@@ -6,17 +6,23 @@ post "/" do
 	tokens = text.split("d")
 	user = params[:user_name]
 	@rolls = []
+	explode = false
 	if tokens.length == 1
 		dice = 1
-		dicerange = tokens[1].to_i
+		if tokens[0].include?("!")
+			explode = true
+			dicerange = tokens[0].chop.to_i
+		else
+			dicerange = tokens[0].to_i
+		end
 	else
 		dice = tokens[0].to_i
-		dicerange = tokens[1].to_i
-	end
-	if tokens.last == "!"
-		explode = true
-	else
-		explode = false
+		if tokens[1].include?("!")
+			explode = true
+			dicerange = tokens[1].chop.to_i
+		else
+			dicerange = tokens[1].to_i
+		end
 	end
 	dice.times do |i|
 		roll = Random.rand(1..dicerange)
